@@ -1,0 +1,30 @@
+{
+    "build": { "dockerfile": "../Dockerfile" },
+    "workspaceFolder": "/workspace",
+    "settings": {
+        "workbench.colorTheme": "SynthWave '84",
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "prettier.jsxSingleQuote": true,
+        "prettier.bracketSameLine": true,
+        "workbench.iconTheme": "vscode-icons",
+        "editor.fontSize": 14,
+        "debug.console.fontSize": 14,
+        "markdown.preview.fontSize": 16,
+        "terminal.integrated.fontSize": 14,
+        "scm.inputFontSize": 15,
+        "prettier.tabWidth": 4
+    },
+    "extensions": [
+        "vincaslt.highlight-matching-tag",
+        "formulahendry.auto-rename-tag",
+        "esbenp.prettier-vscode",
+        "vscode-icons-team.vscode-icons",
+        "RobbOwen.synthwave-vscode",
+        "oderwat.indent-rainbow",
+        "christian-kohler.path-intellisense",
+        "eamodio.gitlens",
+        "steoates.autoimport",
+        "ms-azuretools.vscode-docker"
+    ]
+}
