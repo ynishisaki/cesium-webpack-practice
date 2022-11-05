@@ -1,6 +1,8 @@
 {
     "build": { "dockerfile": "../Dockerfile" },
     "workspaceFolder": "/workspace",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+    "mounts": ["target=/workspace/node_modules"],
     "settings": {
         "workbench.colorTheme": "SynthWave '84",
         "editor.defaultFormatter": "esbenp.prettier-vscode",
