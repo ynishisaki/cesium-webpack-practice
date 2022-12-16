@@ -48,60 +48,51 @@ var your_3d_tiles_shinagawa = viewer.scene.primitives.add(
 //     polygon: {
 //         height: 45, //EGM96: 39.37 Meters
 //     },
-//     position: Cesium.Cartesian3.fromDegrees(139.756389, 35.637222, 0.0),
+//     position: Cesium.Cartesian3.fromDegrees(138.7191, 35.1002, 40.88),
 
 //     box: {
-//         dimensions: new Cesium.Cartesian3(5000.0, 5000.0, 1.0),
+//         dimensions: new Cesium.Cartesian3(10000.0, 10000.0, 0.0),
 //         material: Cesium.Color.CYAN.withAlpha(0.3),
 //     },
 // });
 
-// The height, in meters, above the ellipsoid.
-
-const seaLevelRise = viewer.entities.add({
-    name: "virtual sea level rise",
+//
+const level = viewer.entities.add({
+    name: "height=3776m",
     rectangle: {
-        coordinates: Cesium.Rectangle.fromDegrees(139.7, 35.61, 139.78, 35.65),
-        material: Cesium.Color.CYAN.withAlpha(0.3),
-        // rotation: Cesium.Math.toRadians(45),
-        // extrudedHeight: 3776.0,
-        // extrudedHeight: 136.4424, // 日本のジオイド2011より算出36.4424
-        // EGM96:39.37
-        height: 39,
+        // 曲率が無視できる程度の範囲なら適応できる
+        coordinates: Cesium.Rectangle.fromDegrees(
+            138.7274 - 0.01,
+            35.3606 - 0.01,
+            138.7274 + 0.01,
+            35.3606 + 0.01
+        ),
+        // height: 3776,
+        extrudedHeight: 3776 + 40.88,
+        material: Cesium.Color.RED.withAlpha(0.5),
     },
 });
 
-// カメラの初期位置を設定
-const setCameraView = (initialLat, initialLon) => {
-    viewer.camera.setView({
-        destination: Cesium.Cartesian3.fromDegrees(
-            initialLon,
-            initialLat,
-            5000.0
-        ),
-    });
-};
+// const levelPlusGeoid = viewer.entities.add({
+//     name: "height=3776+40.88m",
+//     rectangle: {
+//         // 曲率が無視できる程度の範囲なら適応できる
+//         coordinates: Cesium.Rectangle.fromDegrees(
+//             138.7274 - 0.01,
+//             35.3606 - 0.01,
+//             138.7274 + 0.01,
+//             35.3606 + 0.01
+//         ),
+//         height: 3776 + 40.88,
+//         material: Cesium.Color.YELLOW.withAlpha(0.5),
+//     },
+// });
 
-function getCurrentPositionIsSuccess(position) {
-    const initialLat = position.coords.latitude;
-    const initialLon = position.coords.longitude;
-    setCameraView(initialLat, initialLon);
-}
-
-function getCurrentPositionIsError() {
-    console.log("位置取得できませんでした、カメラをデフォルト位置に設定します");
-    const initialLat = 35.6451607;
-    const initialLon = 139.7552528;
-    setCameraView(initialLat, initialLon);
-}
-
-// 位置情報API
-if (navigator.geolocation) {
-    console.log("Locating…");
-    navigator.geolocation.getCurrentPosition(
-        getCurrentPositionIsSuccess,
-        getCurrentPositionIsError
-    );
-} else {
-    console.log("Geolocation is not supported by your browser");
-}
+// Fly the camera to San Francisco at the given longitude, latitude, and height.
+viewer.camera.flyTo({
+    destination: Cesium.Cartesian3.fromDegrees(138.7274, 35.3606 - 0.005, 4000),
+    orientation: {
+        heading: Cesium.Math.toRadians(0.0),
+        pitch: Cesium.Math.toRadians(-20.0),
+    },
+});
